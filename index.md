@@ -7,13 +7,13 @@ Today, investment analysis, such as in evaluating stock position strategies, is 
 Unfortunately, relying on technical indicators does not always result in profitable investments. This is partially due to the noise and natural variability in financial markets, though we aim to determine the effectiveness of technical indicators with regards to extraction of meaningful, informative features. Diving one level deeper, we wish to model which general investment strategies are most suitable for given indicator values, evaluating the contribution of technical indicators to strategy profitability.
 
 ### Methods
-We will begin by scraping time series data for a large number of stocks. For each timestep of each stock collected, we will generate a series of technical indicators[^1] which are commonly used to inform a stock trader’s decision-making. This 2-dimensional matrix will act as a time-based feature vector for each stock.
+We will begin by scraping time series data for a large number of stocks. For each timestep[^3] of each stock collected, we will generate a series of technical indicators[^1] which are commonly used to inform a stock trader’s decision-making. This 2-dimensional matrix will act as a time-based feature vector for each stock.
 #### Unsupervised Learning: GMM
 - We will cluster stocks based on technical indicators (GMM). If the clusters are not well-formed (evaluated using a Silhouette matrix), then technical indicators may not be the best for making trading decisions. Otherwise, there may be n distinct trading policies (strategies), where each cluster corresponds to one policy. Regardless of this outcome, we will continue our project to draw more solid conclusions about the usefulness of technical indicators. We will formulate the trading policies based on the results of the clustering.
 
 
 #### Supervised Learning: Deep Learning
-- We will begin by simulating what our profit/loss would be for every stock if we applied each trading policy over 3-month periods. This will give us a ground truth measure for how well each trading policy performs on each stock. Using the technical indicators computed earlier as our feature set, we will create a deep LSTM neural network to predict which trading strategy to use for any given stock. The input will be the set of features for a stock over a 3-month period, and the network output will return the optimal trading policy for that stock.
+- We will begin by simulating what our profit/loss would be for every stock if we applied each trading policy over 3-month periods. This will give us a ground truth measure for how well each trading policy performs on each stock. Using the technical indicators computed earlier as our feature set, we will create a deep LSTM neural network[^1] to predict which trading strategy to use for any given stock. The input will be the set of features for a stock over a 3-month period, and the network output will return the optimal trading policy for that stock.
 
 ### Potential Results and Discussion
 This project will provide us with two results. 
