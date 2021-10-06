@@ -21,13 +21,13 @@ This project will provide us with two results.
 - The second result will also allow us to understand how technical indicators classify into policies directly. This will enable us to evaluate the role indicators play in investment gain. To achieve this, we will be using neural nets that take in these technical indicators as inputs and provide us with patterns and classification of said inputs into each policy. 
 
 ### Proposed Timeline
-- Weeks 0-1: Data Collection [Dylan]
-- Weeks 1-2: Feature Extraction (Technical Indicators) [Blake]
-- Weeks 2-3: GMM Clustering [Munim]
-- Weeks 3-4: Trading Policy Formulation [Michael]
-- Weeks 4-5: Simulation of Ground-Truth Data [Austin]
-- Weeks 5-6: Policy Prediction using Deep Neural Networks [Dylan/Austin]
-- Weeks 6-7: Results & Analysis [Blake]
+- Weeks 0-1: Data Collection **[Dylan]**
+- Weeks 1-2: Feature Extraction (Technical Indicators) **[Blake]**
+- Weeks 2-3: GMM Clustering **[Munim]**
+- Weeks 3-4: Trading Policy Formulation **[Michael]**
+- Weeks 4-5: Simulation of Ground-Truth Data **[Austin]**
+- Weeks 5-6: Policy Prediction using Deep Neural Networks **[Dylan/Austin]**
+- Weeks 6-7: Results & Analysis **[Blake]**
 
 ### References
 [^1]: Zhai Y., Hsu A., Halgamuge S.K. (2007) Combining News and Technical Indicators in Daily Stock Price Trends Prediction. In: Liu D., Fei S., Hou Z., Zhang H., Sun C. (eds) Advances in Neural Networks – ISNN 2007. ISNN 2007. Lecture Notes in Computer Science, vol 4493. Springer, Berlin, Heidelberg. 
