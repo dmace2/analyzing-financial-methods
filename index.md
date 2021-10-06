@@ -10,6 +10,8 @@ Unfortunately, relying on technical indicators does not always result in profita
 We will begin by scraping time series data for a large number of stocks. For each timestep of each stock collected, we will generate a series of technical indicators which are commonly used to inform a stock trader’s decision-making. This 2-dimensional matrix will act as a time-based feature vector for each stock.
 #### Unsupervised Learning: GMM
 - We will cluster stocks based on technical indicators (GMM). If the clusters are not well-formed (evaluated using a Silhouette matrix), then technical indicators may not be the best for making trading decisions. Otherwise, there may be n distinct trading policies (strategies), where each cluster corresponds to one policy. Regardless of this outcome, we will continue our project to draw more solid conclusions about the usefulness of technical indicators. We will formulate the trading policies based on the results of the clustering.
+
+
 #### Supervised Learning: Deep Learning
 - We will begin by simulating what our profit/loss would be for every stock if we applied each trading policy over 3-month periods. This will give us a ground truth measure for how well each trading policy performs on each stock. Using the technical indicators computed earlier as our feature set, we will create a deep LSTM neural network to predict which trading strategy to use for any given stock. The input will be the set of features for a stock over a 3-month period, and the network output will return the optimal trading policy for that stock.
 
