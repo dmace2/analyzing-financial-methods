@@ -72,14 +72,14 @@ First, few stocks formed several well-fit semi-distinct groups, where the comput
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-<img src="midterm_report_images/mcd_clusters.png"> </img>
-<img src="midterm_report_images/mcd_graph.png"> </img>
+<img src="midterm_report_images/low_clusters.png"> </img>
+<img src="midterm_report_images/low_graph.png"> </img>
 
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-<img src="midterm_report_images/low_clusters.png"> </img>
-<img src="midterm_report_images/low_graph.png"> </img>
+<img src="midterm_report_images/mcd_clusters.png"> </img>
+<img src="midterm_report_images/mcd_graph.png"> </img>
 
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
