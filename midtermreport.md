@@ -3,8 +3,33 @@
 ### Introduction/Background
 Today, investment analysis, such as in evaluating stock position strategies, is heavily dependent on technical indicators: functions that extract predefined features from time series. The finance industry relies on technical indicators to quantify time series growth, volatility, patterns, and over/under valued limits.
 
-### Problem definition
+### Problem Definition
 Unfortunately, relying on technical indicators does not always result in profitable investments. This is partially due to the noise and natural variability in financial markets, though we aim to determine the effectiveness of technical indicators with regards to extraction of meaningful, informative features. Diving one level deeper, we wish to model which general investment strategies are most suitable for given indicator values, evaluating the contribution of technical indicators to strategy profitability.
+
+### Data Collection
+
+##### Collecting Stock Data
+We began by scraping time series data for a set of 20 stocks in the Consumer Goods industry: Amazon, Tesla, Alibaba, Home Depot, Toyota Motors, NIke, McDonald’s, Lowes, Starbucks, JD.com, Pinduoduo, Booking Holdings, General Motors, Mercadolibre, TJ Max, Nio, Ford Motors, Lululemon Athletica, Honda Motor Co, and Chipotle Mexican Grill. The yFinance Python library allowed us to obtain 10 years of time series data per stock, organized into daily increments. Each data point gives us five values: 
+- Opening Price
+- Closing Price
+- High
+- Low
+- Volume (Total Shares Traded)
+
+##### Computing Technical Indicators
+For each timestep of data collected, we used TA-Lib to collect 14 technical indicators which are commonly used to influence a stock trader’s decision-making strategies. These technical indicators include:
+- **Relative Strength Index (RSI):** Oscillates between 0 and 100. Buy signal below 20, Sell signal above 80.
+- **Ultimate Oscillator:** Oscillates between 0 and 100. Buy signal below 30, Sell above 70
+- **Bollinger Bands:** Width of expected price range, two standard deviations
+- **Chaikin Oscillator:** Oscillates between 0 and 100, signals oversold / underbought dependent on Volume
+- **Normalized Average True Range (NATR):**  Measure of time series volatility and directional uncertainty
+- **Simple Moving Average, 5 day, 20 day, 100 day (SMA)**: Average of last n days
+- **Parabolic SAR:** Overlap indicator, buy signal when value jumps from above price to below price, and vice versa
+- **Williams %R:** Oscillates between 0 and 100, signifies strength in momentum
+- **Absolute Price Oscillator (APO):** Oscillator centered at 0, buy signal when crossing from negative to positive, sell signal when crossing from positive to negative
+- **Rate of Change, 5 day, 20 day, 100 day (ROC):** Simple % change in price across a given period of n days
+
+We appended these indicators as new columns of our pandas dataframe, to generate a 10 year by 19 column matrix, where each row corresponded to one day.
 
 ### Methods
 We will begin by scraping time series data for a large number of stocks. For each timestep[^1] of each stock collected, we will generate a series of technical indicators[^2] which are commonly used to inform a stock trader’s decision-making. This 2-dimensional matrix will act as a time-based feature vector for each stock.
