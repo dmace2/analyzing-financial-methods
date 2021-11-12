@@ -8,7 +8,7 @@ Unfortunately, relying on technical indicators does not always result in profita
 
 ### Data Collection
 
-##### Collecting Stock Data
+#### [Collecting Stock Data]
 We began by scraping time series data for a set of 20 stocks in the Consumer Goods industry: Amazon, Tesla, Alibaba, Home Depot, Toyota Motors, NIke, McDonald’s, Lowes, Starbucks, JD.com, Pinduoduo, Booking Holdings, General Motors, Mercadolibre, TJ Max, Nio, Ford Motors, Lululemon Athletica, Honda Motor Co, and Chipotle Mexican Grill. The yFinance Python library allowed us to obtain 10 years of time series data per stock, organized into daily increments. Each data point gives us five values: 
 - Opening Price
 - Closing Price
@@ -16,7 +16,7 @@ We began by scraping time series data for a set of 20 stocks in the Consumer Goo
 - Low
 - Volume (Total Shares Traded)
 
-##### Computing Technical Indicators
+#### [Computing Technical Indicators]
 For each timestep of data collected, we used TA-Lib to collect 14 technical indicators which are commonly used to influence a stock trader’s decision-making strategies. These technical indicators include:
 - **Relative Strength Index (RSI):** Oscillates between 0 and 100. Buy signal below 20, Sell signal above 80.
 - **Ultimate Oscillator:** Oscillates between 0 and 100. Buy signal below 30, Sell above 70
