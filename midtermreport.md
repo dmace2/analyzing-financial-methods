@@ -37,9 +37,9 @@ We will cluster stocks based on technical indicators (GMM). If the clusters are 
 #### Outlier Removal
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
-<img src="midterm_report_images/outliers_GM.png"> </img>
-<img src="midterm_report_images/cmg_before_outliers.png"> </img>
-<img src="midterm_report_images/cmg_after_outliers.png"> </img>
+<img src="midterm_report_images/outliers_GM.png">
+<img src="midterm_report_images/cmg_before_outliers.png">
+<img src="midterm_report_images/cmg_after_outliers.png">
 
 #### Dimensionality Reduction Using PCA
 In order to visualize the technical indicators for each stock, we reduced our data down to 3 dimensions using PCA. We did this before clustering to manually inspect whether our features could be separated into well-defined clusters. 
@@ -47,8 +47,9 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-<img src="midterm_report_images/tm_clusters.png"> </img>
-<img src="midterm_report_images/amzn_clusters.png"> </img>
+<img src="midterm_report_images/tm_clusters.png">
+<img src="midterm_report_images/amzn_clusters.png">
+<img src="midterm_report_images/bins.png">
 
 #### Clustering Using GMM
 Rather than using K-Means, which is restricted to circular clusters, we chose to use the GMM algorithm with a full covariance matrix. This would give us irregular-shaped clusters, which would be more capable of representing the data. We used Sci-Kit Learn’s GMM function, in which we passed in multiple different cluster numbers, ranging from 1-14. We calculated the BIC (minimize), AIC (minimize), and Silhouette Score (maximize) for each run of GMM, and used whichever metric signaled optimality first to select the number of clusters for each stock. AIC and BIC attempt to optimize the probabilistic assignment for each point, though BIC additionally penalizes models with more clusters without reasonable information gain. From here, we were able to calculate the centroids of the clusters, and store them for use later when choosing ground-truth policies for the stocks.
@@ -67,31 +68,24 @@ Originally, we planned to overlap all feature vectors for all stocks in a single
 No stock formed perfectly distinct clusters, instead forming overlapping clouds around general centers. Clustering results can be split into three categories:
 First, few stocks formed several well-fit semi-distinct groups, where the computed optimal number of clusters is well reflected visually. The number of components is generally chosen when BIC is minimized, often with Silhouette showcasing a downtrend.
 
-<img src="midterm_report_images/f_clusters.png"> </img>
-<img src="midterm_report_images/f_graph.png"> </img>
+<img src="midterm_report_images/f_clusters.png">
+<img src="midterm_report_images/f_graph.png">
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-<img src="midterm_report_images/low_clusters.png"> </img>
-<img src="midterm_report_images/low_graph.png"> </img>
+<img src="midterm_report_images/low_clusters.png">
+<img src="midterm_report_images/low_graph.png">
 
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-<img src="midterm_report_images/mcd_clusters.png"> </img>
-<img src="midterm_report_images/mcd_graph.png"> </img>
+<img src="midterm_report_images/mcd_clusters.png">
+<img src="midterm_report_images/mcd_graph.png">
 
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
 
 Following the unsupervised section of the project, we look ahead to reinforcing our evaluation of common financial methods with a supervised component. Having obtained the centers for the detected clusters and inversely transformed them to their original form, we can formulate policies supporting such indicator values. For instance, a discovered center that is defined by its low RSI and Parabolic SAR values signify that the stock price is commonly reaching a local minimum: a suitable investment policy is to wait for this dip, buy at the local minimum, and sell before the prices dives down again. In phase II of the project, we want to select the most common policies following the centers found when clustering across the 20 stocks, and training a Neural Network model to correctly classify technical indicator values in a time series to the best investment policy. If this model performs accurately, we can conclude that indicators do present a sound way to make worthwhile investments. By contrast, an error-prone model would suggest that technical indicators do not encapsulate information significant enough to optimize profits, despite the greater financial industry’s assumption.
-
-
-
-
-
-
-
 
 ### Proposed Timeline
 - Week 0: Trading Policy Formulation **[Michael]**
