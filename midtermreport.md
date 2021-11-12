@@ -47,7 +47,7 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-<img src="midterm_report_images/amzn_indicators.png"> </img>
+<img src="midterm_report_images/tm_clusters.png"> </img>
 <img src="midterm_report_images/amzn_clusters.png"> </img>
 
 #### Clustering Using GMM
