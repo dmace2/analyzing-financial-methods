@@ -37,7 +37,6 @@ We will cluster stocks based on technical indicators (GMM). If the clusters are 
 #### Outlier Removal
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
-**ADD IMAGE**
 <img src="midterm_report_images/outliers_GM.png"> </img>
 <img src="midterm_report_images/cmg_before_outliers.png"> </img>
 <img src="midterm_report_images/cmg_after_outliers.png"> </img>
@@ -48,7 +47,8 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-**ADD IMAGE**
+<img src="midterm_report_images/amzn_indicators.png"> </img>
+<img src="midterm_report_images/amzn_clusters.png"> </img>
 
 #### Clustering Using GMM
 Rather than using K-Means, which is restricted to circular clusters, we chose to use the GMM algorithm with a full covariance matrix. This would give us irregular-shaped clusters, which would be more capable of representing the data. We used Sci-Kit Learn’s GMM function, in which we passed in multiple different cluster numbers, ranging from 1-14. We calculated the BIC (minimize), AIC (minimize), and Silhouette Score (maximize) for each run of GMM, and used whichever metric signaled optimality first to select the number of clusters for each stock. AIC and BIC attempt to optimize the probabilistic assignment for each point, though BIC additionally penalizes models with more clusters without reasonable information gain. From here, we were able to calculate the centroids of the clusters, and store them for use later when choosing ground-truth policies for the stocks.
@@ -61,21 +61,26 @@ We will begin by simulating what our profit/loss would be for every stock if we 
 ### Results and Discussion
 Initially, we hypothesized that clustering directly over all 14 normalized indicators was sufficient. However, this approach was unsuccessful for two reasons. First, each technical indicator was given an equal weight in the form of its own dimension. In reality, we cannot assume the significance of all technical indicators to be uniform. We combat this by leveraging dimensionality reduction with PCA, then clustering over the top 3 most significant principal components. Secondly, outliers distracted the GMM algorithm from focusing on the grand majority of features in close proximity. Outlier detection and removal before clustering easily cured this shortcoming.
 
-**ADD IMAGE** 
+
 
 Originally, we planned to overlap all feature vectors for all stocks in a single clustering episode. Seeing that this approach lacks per-stock insight, we decided to deviate from this approach. All clustering was run per-stock, yielding mixed results
 No stock formed perfectly distinct clusters, instead forming overlapping clouds around general centers. Clustering results can be split into three categories:
 First, few stocks formed several well-fit semi-distinct groups, where the computed optimal number of clusters is well reflected visually. The number of components is generally chosen when BIC is minimized, often with Silhouette showcasing a downtrend.
 
-**ADD IMAGE** 
+<img src="midterm_report_images/f_clusters.png"> </img>
+<img src="midterm_report_images/f_graph.png"> </img>
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-**ADD IMAGE**
+<img src="midterm_report_images/mcd_clusters.png"> </img>
+<img src="midterm_report_images/mcd_graph.png"> </img>
+
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-**ADD IMAGE**
+<img src="midterm_report_images/low_clusters.png"> </img>
+<img src="midterm_report_images/low_graph.png"> </img>
+
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
 
