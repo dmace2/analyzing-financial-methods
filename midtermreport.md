@@ -38,6 +38,9 @@ We will cluster stocks based on technical indicators (GMM). If the clusters are 
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
 **ADD IMAGE**
+<img src="midterm_report_images/outliers_GM.png"> </img>
+<img src="midterm_report_images/cmg_before_outliers.png"> </img>
+<img src="midterm_report_images/cmg_after_outliers.png"> </img>
 
 #### Dimensionality Reduction Using PCA
 In order to visualize the technical indicators for each stock, we reduced our data down to 3 dimensions using PCA. We did this before clustering to manually inspect whether our features could be separated into well-defined clusters. 
