@@ -38,7 +38,7 @@ We will cluster stocks based on technical indicators (GMM). If the clusters are 
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
 <img src="midterm_report_images/outliers_GM.png" width='500px'>
-Visualization of Outliers in GM Stock
+<figcaption> Visualization of Outliers in GM Stock</figcaption>
 <img src="midterm_report_images/cmg_before_outliers.png" width='500px'>
 Visualization of CMG Stock Distances from Mean with Outliers
 <img src="midterm_report_images/cmg_after_outliers.png" width='500px'>
