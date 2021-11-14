@@ -50,11 +50,11 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-<img src="midterm_report_images/tm_clusters.png">
+<img src="midterm_report_images/tm_clusters.png" width='500px'>
 Visyualization of Toyota Stock Clusters
-<img src="midterm_report_images/amzn_clusters.png">
+<img src="midterm_report_images/amzn_clusters.png" width='500px'>
 Visualization of Amazon Stock Clusters
-<img src="midterm_report_images/bins.png">
+<img src="midterm_report_images/bins.png" width='500px'>
 Visualization of Number of Clusters per Stock
 
 #### Clustering Using GMM
@@ -74,24 +74,24 @@ Originally, we planned to overlap all feature vectors for all stocks in a single
 No stock formed perfectly distinct clusters, instead forming overlapping clouds around general centers. Clustering results can be split into three categories:
 First, few stocks formed several well-fit semi-distinct groups, where the computed optimal number of clusters is well reflected visually. The number of components is generally chosen when BIC is minimized, often with Silhouette showcasing a downtrend.
 
-<img src="midterm_report_images/f_clusters.png">
+<img src="midterm_report_images/f_clusters.png" width='500px'>
 Visualization of Ford Stock Clusters
-<img src="midterm_report_images/f_graph.png">
+<img src="midterm_report_images/f_graph.png" width='500px'>
 Visualization of Ford Stock Cluster Metrics
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-<img src="midterm_report_images/low_clusters.png">
+<img src="midterm_report_images/low_clusters.png" width='500px'>
 Visualization of Lowes Stock Clusters
-<img src="midterm_report_images/low_graph.png">
+<img src="midterm_report_images/low_graph.png" width='500px'>
 Visualization of Lowes Stock Cluster Metrics
 
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-<img src="midterm_report_images/mcd_clusters.png">
+<img src="midterm_report_images/mcd_clusters.png" width='500px'>
 Visualization of McDonald’s Stock Clusters
-<img src="midterm_report_images/mcd_graph.png">
+<img src="midterm_report_images/mcd_graph.png" width='500px'>
 Visualization of McDonald’s Stock Cluster Metrics
 
 
