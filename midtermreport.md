@@ -37,11 +37,11 @@ We will cluster stocks based on technical indicators (GMM). If the clusters are 
 #### Outlier Removal
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
-<img src="midterm_report_images/outliers_GM.png" width='500px'>
+<img src="midterm_report_images/outliers_GM.png" width='500px' />
 <figcaption> Visualization of Outliers in GM Stock</figcaption>
 <img src="midterm_report_images/cmg_before_outliers.png" width='500px'>
 Visualization of CMG Stock Distances from Mean with Outliers
-<img src="midterm_report_images/cmg_after_outliers.png" width='500px'>
+<img src="midterm_report_images/cmg_after_outliers.png" width='500px' />
 Visualization of CMG Stock Distances from Mean with Outliers Removed
 
 #### Dimensionality Reduction Using PCA
@@ -50,11 +50,11 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-<img src="midterm_report_images/tm_clusters.png" width='500px'>
-<figcaption> Visyualization of Toyota Stock Clusters</figcaption>
-<img src="midterm_report_images/amzn_clusters.png" width='500px'>
-<figcaption>Visualization of Amazon Stock Clusters</figcaption>
-<img src="midterm_report_images/bins.png" width='500px'>
+<img src="midterm_report_images/tm_clusters.png" width='500px' />
+<figcaption> Visualization of Toyota Stock's Technical Indicator Clusters</figcaption>
+<img src="midterm_report_images/amzn_clusters.png" width='500px' />
+<figcaption>Visualization of Amazon Stock's Technical Indicator Clusters</figcaption>
+<img src="midterm_report_images/bins.png" width='500px' />
 <figcaption>Visualization of Number of Clusters per Stock</figcaption>
 
 #### Clustering Using GMM
@@ -75,24 +75,24 @@ No stock formed perfectly distinct clusters, instead forming overlapping clouds 
 First, few stocks formed several well-fit semi-distinct groups, where the computed optimal number of clusters is well reflected visually. The number of components is generally chosen when BIC is minimized, often with Silhouette showcasing a downtrend.
 
 <img src="midterm_report_images/f_clusters.png" width='500px'>
-<figcaption>Visualization of Ford Stock Clusters</figcaption>
+<figcaption>Visualization of Ford Stock's Technical Indicator Clusters</figcaption>
 <img src="midterm_report_images/f_graph.png" width='500px'>
-<figcaption>Visualization of Ford Stock Cluster Metrics</figcaption>
+<figcaption>Visualization of Ford Stock's Technical Indicator Cluster Metrics</figcaption>
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-<img src="midterm_report_images/low_clusters.png" width='500px'>
-<figcaption>Visualization of Lowes Stock Clusters</figcaption>
-<img src="midterm_report_images/low_graph.png" width='500px'>
-<figcaption>Visualization of Lowes Stock Cluster Metrics</figcaption>
+<img src="midterm_report_images/low_clusters.png" width='500px' />
+<figcaption>Visualization of Lowes Stock's Technical Indicator Clusters</figcaption>
+<img src="midterm_report_images/low_graph.png" width='500px' />
+<figcaption>Visualization of Lowes Stock's Technical Indicator Cluster Metrics</figcaption>
 
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-<img src="midterm_report_images/mcd_clusters.png" width='500px'>
-<figcaption>Visualization of McDonald’s Stock Clusters</figcaption>
-<img src="midterm_report_images/mcd_graph.png" width='500px'>
-<figcaption>Visualization of McDonald’s Stock Cluster Metrics</figcaption>
+<img src="midterm_report_images/mcd_clusters.png" width='500px' />
+<figcaption>Visualization of McDonald’s Stock's Technical Indicator Clusters</figcaption>
+<img src="midterm_report_images/mcd_graph.png" width='500px' />
+<figcaption>Visualization of McDonald’s Stock's Technical Indicator Cluster Metrics</figcaption>
 
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
