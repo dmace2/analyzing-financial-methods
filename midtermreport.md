@@ -63,10 +63,6 @@ Looking at the top three principal components, we can see that the technical ind
 
 ###### Visualization of Amazon Stock's Technical Indicator Clusters
 
-<img src="midterm_report_images/bins.png" width='500px' />
-
-###### Visualization of Number of Clusters per Stock
-
 #### Clustering Using GMM
 Rather than using K-Means, which is restricted to circular clusters, we chose to use the GMM algorithm with a full covariance matrix. This would give us irregular-shaped clusters, which would be more capable of representing the data. We used Sci-Kit Learn’s GMM function, in which we passed in multiple different cluster numbers, ranging from 1-14. We calculated the BIC (minimize), AIC (minimize), and Silhouette Score (maximize) for each run of GMM, and used whichever metric signaled optimality first to select the number of clusters for each stock. AIC and BIC attempt to optimize the probabilistic assignment for each point, though BIC additionally penalizes models with more clusters without reasonable information gain. From here, we were able to calculate the centroids of the clusters, and store them for use later when choosing ground-truth policies for the stocks.
 We ran GMM on the original 14 dimension data, and then we ran GMM on the data preprocessed by PCA.
@@ -112,6 +108,12 @@ Thirdly, the remaining stocks overfitting clusters amidst a large cloud of featu
 <img src="midterm_report_images/mcd_graph.png" width='500px' />
 
 ###### Visualization of McDonald’s Stock's Technical Indicator Cluster Metrics
+
+Furthermore, taking the optimal number of clusters when performing GMM on each of the stocks' indicators, we can determine that the mean number of clusters (and hence cluster centers) is 5.
+
+<img src="midterm_report_images/bins.png" width='500px' />
+
+###### Visualization of Number of Clusters per Stock
 
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
