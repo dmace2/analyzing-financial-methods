@@ -41,11 +41,11 @@ Prior to clustering the data, we removed any outliers. This was done by calculat
 
 ###### Visualization of Outliers in GM Stock
 
-<img src="midterm_report_images/cmg_before_outliers.png" width='500px' />
+<img src="midterm_report_images/cmg_before_outliers.jpeg" width='500px' />
 
 ###### Visualization of CMG Stock Distances from Mean with Outliers
 
-<img src="midterm_report_images/cmg_after_outliers.png" width='500px' />
+<img src="midterm_report_images/cmg_after_outliers.jpeg" width='500px' />
 
 ###### Visualization of CMG Stock Distances from Mean with Outliers Removed
 
