@@ -1,4 +1,4 @@
-# Analyzing Finanacial Methods
+# Analyzing Finanacial Methods - Midterm Report
 
 ### Introduction/Background
 Today, investment analysis, such as in evaluating stock position strategies, is heavily dependent on technical indicators: functions that extract predefined features from time series. The finance industry relies on technical indicators to quantify time series growth, volatility, patterns, and over/under valued limits.
