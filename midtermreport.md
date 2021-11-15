@@ -39,7 +39,7 @@ Prior to clustering the data, we removed any outliers. This was done by calculat
 
 <img src="midterm_report_images/outliers_GM.png" width='500px' />
 
-###### Visualization of Outliers in GM Stock
+###### Visualization of Outliers in CGM Stock
 
 <img src="midterm_report_images/cmg_before_outliers.jpeg" width='500px' />
 
