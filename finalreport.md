@@ -67,6 +67,11 @@ Looking at the top three principal components, we can see that the technical ind
 Rather than using K-Means, which is restricted to circular clusters, we chose to use the GMM algorithm with a full covariance matrix. This would give us irregular-shaped clusters, which would be more capable of representing the data. We used Sci-Kit Learn’s GMM function, in which we passed in multiple different cluster numbers, ranging from 1-14. We calculated the BIC (minimize), AIC (minimize), and Silhouette Score (maximize) for each run of GMM, and used whichever metric signaled optimality first to select the number of clusters for each stock. AIC and BIC attempt to optimize the probabilistic assignment for each point, though BIC additionally penalizes models with more clusters without reasonable information gain. From here, we were able to calculate the centroids of the clusters, and store them for use later when choosing ground-truth policies for the stocks.
 We ran GMM on the original 14 dimension data, and then we ran GMM on the data preprocessed by PCA.
 
+---
+
+After performing our unsupervised learning algorithms,  we will employ a series of supervised learning algorithms based on our ground-truth policies. This should allow us to better create a more generalized model for predictive use cases.
+
+
 #### Classification using Naive Bayes
 Often known as the simplest form of supervised learning, Naive Bayes makes a large number of assumptions when training a classifier model. We wanted to see if our data was robust enough that Naive Bayes would perform well on it. To do this, we used SciKit Learn’s Gaussian Naive Bayes module, and trained on our data. 
 
@@ -91,13 +96,6 @@ While this is not a conventional use case for this algorithm, we were struggling
 #### Classification using Random Forest
 One of the biggest problems with our data is that there is a large variance. In order to combat this, we created a Random Forest classifier with 100 estimators. This allowed us to train many decision trees on different segments of our data with the goal of reducing overall variance in the model. We used the Gini Coefficient for measuring split information gain, as this is the standard with Random Forest. In order to implement this, we used SciKit Learn’s RandomForestClassifier to train the model.
 
-
-
-
-
-
-#### Supervised Learning: Deep Learning
-We will begin by simulating what our profit/loss would be for every stock if we applied each trading policy over 3-month periods. This will give us a ground truth measure for how well each trading policy performs on each stock. Using the technical indicators computed earlier as our feature set, we will create a deep LSTM neural network[^3] to predict which trading strategy to use for any given stock. The input will be the set of features for a stock over a 3-month period, and the network output will return the optimal trading policy for that stock.
 
 ### Results and Discussion
 Initially, we hypothesized that clustering directly over all 14 normalized indicators was sufficient. However, this approach was unsuccessful for two reasons. First, each technical indicator was given an equal weight in the form of its own dimension. In reality, we cannot assume the significance of all technical indicators to be uniform. We combat this by leveraging dimensionality reduction with PCA, then clustering over the top 3 most significant principal components. Secondly, outliers distracted the GMM algorithm from focusing on the grand majority of features in close proximity. Outlier detection and removal before clustering easily cured this shortcoming.
