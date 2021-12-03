@@ -146,13 +146,3 @@ Applying these findings to the real world, it becomes clear that technical indic
 
 Following the unsupervised section of the project, we look ahead to reinforcing our evaluation of common financial methods with a supervised component. Having obtained the centers for the detected clusters and inversely transformed them to their original form, we can formulate policies supporting such indicator values. For instance, a discovered center that is defined by its low RSI and Parabolic SAR values signify that the stock price is commonly reaching a local minimum: a suitable investment policy is to wait for this dip, buy at the local minimum, and sell before the prices dives down again. In phase II of the project, we want to select the most common policies following the centers found when clustering across the 20 stocks, and training a Neural Network model to correctly classify technical indicator values in a time series to the best investment policy. If this model performs accurately, we can conclude that indicators do present a sound way to make worthwhile investments. By contrast, an error-prone model would suggest that technical indicators do not encapsulate information significant enough to optimize profits, despite the greater financial industry’s assumption.
 
-### Proposed Timeline
-- Week 0: Trading Policy Formulation **[Michael]**
-- Week 0: Simulation of Ground-Truth Data **[Austin]**
-- Weeks 1-2: Policy Prediction using Deep Neural Networks and Regression **[Dylan/Munim]**
-- Week 3: Final Result Analysis **[Blake]**
-
-### References
-[^1]: Zhai Y., Hsu A., Halgamuge S.K. (2007) Combining News and Technical Indicators in Daily Stock Price Trends Prediction. In: Liu D., Fei S., Hou Z., Zhang H., Sun C. (eds) Advances in Neural Networks – ISNN 2007. ISNN 2007. Lecture Notes in Computer Science, vol 4493. Springer, Berlin, Heidelberg. 
-[^2]: Yauheniya Shynkevich, T.M. McGinnity, Sonya A. Coleman, Ammar Belatreche, Yuhua Li, “Forecasting price movements using technical indicators: Investigating the impact of varying input window length, ” Neurocomputing, 2017, pp. 71-88, https://doi.org/10.1016/j.neucom.2016.11.095.
-[^3]: P. Oncharoen and P. Vateekul, "Deep Learning for Stock Market Prediction Using Event Embedding and Technical Indicators," 2018 5th International Conference on Advanced Informatics: Concept Theory and Applications (ICAICTA), 2018, pp. 19-24, doi: 10.1109/ICAICTA.2018.8541310.
