@@ -31,21 +31,64 @@ For each timestep of data collected, we used TA-Lib to collect 14 technical indi
 
 We appended these indicators as new columns of our pandas dataframe, to generate a 10 year by 19 column matrix, where each row corresponded to one day.
 
+#### Policy Generation (Supervised)
+Once having completed our unsupervised policies, we constructed ground-truth labels in preparation for supervised learning. Given the common centroids discovered through clustering, we generate four policies (two policies, each with a long and short-selling variant). In more detail, the policies are:
+
+1. **Buy and Hold** (Long)
+Express profit as the price 20 trading days into the future minus the current price.
+
+<img src="report_images/policy1.png" width='500px'>
+
+
+##### Pictured: a scenario where policy 1 is optimal
+
+2. **Sell and Hold** (Short)
+Express profit as the current price minus the price 20 trading days into the future. Since this is a short-selling strategy, profitability increases when price decreases over time.
+
+##### Pictured: a scenario where policy 2 is optimal
+
+<img src="report_images/policy2.png" width='500px'>
+
+
+1. **Buy Trough, Sell Peak** (Long)
+Greedily wait to buy the lowest trough, and sell at the highest peak over the next 20 trading days. Because greater risk is involved than the Buy and Hold policy, we assume that the trader can only obtain 50% of the swing trade profits.
+
+##### Pictured: a scenario where policy 3 is optimal
+
+<img src="report_images/policy3.png" width='500px'>
+
+
+
+1. **Sell Peak, Buy Trough** (Short)
+The short-selling variant of the third policy. Same risk assumption applies.
+
+
+##### Pictured: a scenario where policy 4 is optimal
+
+<img src="report_images/policy4.png" width='500px'>
+
+All 4 policies are computed for every time step in each stock’s time series, taking into account future stock performance. The optimal policy is chosen as that yielding greatest profit. Our goal now turns to correctly classifying each time step into the optimal policy (ground-truth) from the technical indicator features.
+
+
 ### Methods
+
+#### Context
 We will cluster stocks based on technical indicators (GMM). If the clusters are not well-formed (evaluated using a Silhouette matrix), then technical indicators may not be the best for making trading decisions. Otherwise, there may be n distinct trading policies (strategies), where each cluster corresponds to one policy.
+
+Then, we will evaluate different classification models, aiming to evaluate how effectively technical indicator features can choose profitable strategies. If these methods succeed, then technical indicators play a significant, positive effect on strategy selection. Otherwise, their basis for performing profitable investments is unproductive.
 
 #### Outlier Removal
 Prior to clustering the data, we removed any outliers. This was done by calculating each feature’s euclidean to the global center, finding the Interquartile Range (IQR) of such distances, and removing any points outside the 1.5*IQR range. This would allow for better clustering results, as the data will not be skewed by a small percentage of outliers.
 
-<img src="midterm_report_images/outliers_GM.png" width='500px' />
+<img src="report_images/outliers_GM.png" width='500px' />
 
 ###### Visualization of Outliers in CGM Stock
 
-<img src="midterm_report_images/cmg_before_outliers.jpeg" width='500px' />
+<img src="report_images/cmg_before_outliers.jpeg" width='500px' />
 
 ###### Visualization of CMG Stock Distances from Mean with Outliers
 
-<img src="midterm_report_images/cmg_after_outliers.jpeg" width='500px' />
+<img src="report_images/cmg_after_outliers.jpeg" width='500px' />
 
 ###### Visualization of CMG Stock Distances from Mean with Outliers Removed
 
@@ -55,11 +98,11 @@ To reduce the data to three dimensions, we projected technical indicators along 
 PCA was performed on the data using the Sci-Kit Learn library. Prior to performing PCA, we used Sci-Kit Learn’s StandardScaler class to center the data.
 Looking at the top three principal components, we can see that the technical indicators for certain stocks form distinct clusters. For Toyota (ticker TM), for example, there are four clear clusters in the reduced data. However, other stocks like Amazon did not have any discernible clusters using the first three principal components. 
 
-<img src="midterm_report_images/tm_clusters.png" width='500px' />
+<img src="report_images/tm_clusters.png" width='500px' />
 
 ###### Visualization of Toyota Stock's Technical Indicator Clusters
 
-<img src="midterm_report_images/amzn_clusters.png" width='500px' />
+<img src="report_images/amzn_clusters.png" width='500px' />
 
 ###### Visualization of Amazon Stock's Technical Indicator Clusters
 
@@ -106,38 +149,38 @@ Originally, we planned to overlap all feature vectors for all stocks in a single
 No stock formed perfectly distinct clusters, instead forming overlapping clouds around general centers. Clustering results can be split into three categories:
 First, few stocks formed several well-fit semi-distinct groups, where the computed optimal number of clusters is well reflected visually. The number of components is generally chosen when BIC is minimized, often with Silhouette showcasing a downtrend.
 
-<img src="midterm_report_images/f_clusters.png" width='500px' />
+<img src="report_images/f_clusters.png" width='500px' />
 
 ###### Visualization of Ford Stock's Technical Indicator Clusters
 
-<img src="midterm_report_images/f_graph.png" width='500px' />
+<img src="report_images/f_graph.png" width='500px' />
 
 ###### Visualization of Ford Stock's Technical Indicator Cluster Metrics
 
 Secondly, half the stocks formed few, vague clusters, signifying that only few meaningful signals can be extracted from the combination of indicators. These clusters are also characterized by an early peaking silhouette score.
 
-<img src="midterm_report_images/low_clusters.png" width='500px' />
+<img src="report_images/low_clusters.png" width='500px' />
 
 ###### Visualization of Lowes Stock's Technical Indicator Clusters
 
-<img src="midterm_report_images/low_graph.png" width='500px' />
+<img src="report_images/low_graph.png" width='500px' />
 
 ###### Visualization of Lowes Stock's Technical Indicator Cluster Metrics
 
 
 Thirdly, the remaining stocks overfitting clusters amidst a large cloud of feature points, suggesting that no significant relationship between indicators could be detected for such stocks. Here, it is common for BIC to be minimized late, with a low Silhouette score.
 
-<img src="midterm_report_images/mcd_clusters.png" width='500px' />
+<img src="report_images/mcd_clusters.png" width='500px' />
 
 ###### Visualization of McDonald’s Stock's Technical Indicator Clusters
 
-<img src="midterm_report_images/mcd_graph.png" width='500px' />
+<img src="report_images/mcd_graph.png" width='500px' />
 
 ###### Visualization of McDonald’s Stock's Technical Indicator Cluster Metrics
 
 Furthermore, taking the optimal number of clusters when performing GMM on each of the stocks' indicators, we can determine that the mean number of clusters (and hence cluster centers) is 5.
 
-<img src="midterm_report_images/bins.png" width='500px' />
+<img src="report_images/bins.png" width='500px' />
 
 ###### Visualization of Number of Clusters per Stock
 
