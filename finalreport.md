@@ -123,15 +123,16 @@ Because our data is high-dimensional (14 technical indicators per day), we wante
 
 #### Deep Learning using Dense Neural Networks
 To begin the supervised learning section of our project, we will attempt to fit a dense neural network to our ground truth policy data. This function should better approximate the data as it will be much more complex than the unsupervised learning methods employed previously. To create this model, we used TensorFlow. We created a series of fully-connected dense layers with varying numbers of neurons in each layer. We also employed the Adam optimizer with a loss function of Categorical Cross-Entropy to backfit our model during training. The input to this network was one day’s worth of technical indicators (collected during the data collection step of the project); being the simpler of the two neural networks we attempted to train, we wanted to see if one day at a time was enough to capture trends in technical indicators. The output layer had a softmax activation and returned a list of size 4, with each value corresponding to the confidence the corresponding policy number was correct.
-**model.summary()**
 
 #### Deep Learning using Convolutional Neural Networks
-**model.summary()**
+In order to exploit multi-day trends in stock price, we used a convolutional neural network with 1-dimensional convolutional layers. Data for every 20 days were taken and reshaped into NxD matrices, with N being the number of samples (20) and D being the number of technical indicators/features (14).
+The network was designed to predict a trading policy based on each NxD matrix passed as input. For each matrix, the policy label was the label associated with the last day of data. The network used 1-dimensional convolution because we only wanted it to leverage trends in stock data over time. 
+The CNN was composed of a convolutional layer, max pooling, a second convolutional layer, and two dense layers. Just like our fully-connected network, the CNN’s output layer consisted of 4 nodes – one for predicting each of our 4 possible trading policies. Each layer in the CNN used relu activation, and we trained the CNN using the Adam optimizer with Categorical Cross-Entropy loss.
+
 
 #### Deep Learning using LSTM Neural Networks
 One theory we had surrounding technical indicators is that they do not work well in a one-day vacuum; to combat this, we wanted to look at indicators over a series of time to see if a particular combination of indicators represented the choosing of a policy. To do this, we used an LSTM network, where instead of feeding in indicators for one timestep, we input 28 days at a time. Again using TensorFlow, this model was created with two Bidirectional LSTM layers, each with 32 neurons. After the LSTM layers, two fully-connected dense layers were added, the first with 16 neurons and the last with 4. 
 When creating our time series data, we looked at a sliding window of 28 days.  To create the X labels, we simply took the 28 day window, and for the y label we chose the policy at the end of that 28-day window. This makes the assumption that all of the information within that window is representative of the final policy, but this is an assumption we are willing to make for this project. 
-**model.summary()**
 
 #### Classification using K-Nearest Neighbors
 While this is not a conventional use case for this algorithm, we were struggling to get good results using neural networks and Naive Bayes. Thus, we decided to implement SciKit Learn’s KNN module to attempt a different form of classification. As usual, we split the data into train and test sets and ran the classification algorithm.
@@ -140,7 +141,8 @@ While this is not a conventional use case for this algorithm, we were struggling
 One of the biggest problems with our data is that there is a large variance. In order to combat this, we created a Random Forest classifier with 100 estimators. This allowed us to train many decision trees on different segments of our data with the goal of reducing overall variance in the model. We used the Gini Coefficient for measuring split information gain, as this is the standard with Random Forest. In order to implement this, we used SciKit Learn’s RandomForestClassifier to train the model.
 
 
-### Results and Discussion
+### Results
+#### Unsupervised Learning
 Initially, we hypothesized that clustering directly over all 14 normalized indicators was sufficient. However, this approach was unsuccessful for two reasons. First, each technical indicator was given an equal weight in the form of its own dimension. In reality, we cannot assume the significance of all technical indicators to be uniform. We combat this by leveraging dimensionality reduction with PCA, then clustering over the top 3 most significant principal components. Secondly, outliers distracted the GMM algorithm from focusing on the grand majority of features in close proximity. Outlier detection and removal before clustering easily cured this shortcoming.
 
 
@@ -187,5 +189,24 @@ Furthermore, taking the optimal number of clusters when performing GMM on each o
 
 Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
 
-Following the unsupervised section of the project, we look ahead to reinforcing our evaluation of common financial methods with a supervised component. Having obtained the centers for the detected clusters and inversely transformed them to their original form, we can formulate policies supporting such indicator values. For instance, a discovered center that is defined by its low RSI and Parabolic SAR values signify that the stock price is commonly reaching a local minimum: a suitable investment policy is to wait for this dip, buy at the local minimum, and sell before the prices dives down again. In phase II of the project, we want to select the most common policies following the centers found when clustering across the 20 stocks, and training a Neural Network model to correctly classify technical indicator values in a time series to the best investment policy. If this model performs accurately, we can conclude that indicators do present a sound way to make worthwhile investments. By contrast, an error-prone model would suggest that technical indicators do not encapsulate information significant enough to optimize profits, despite the greater financial industry’s assumption.
+#### Supervised Learning Learning
 
+##### Classification Using Naive Bayes
+The Naive Bayes model did a poor job of classification. It consistently chose policies that were the most present, often only selecting between one or two labels instead of all 4. This made its accuracy very low and unhelpful for choosing the correct policy. 
+
+
+
+
+
+
+
+
+
+
+
+### Conclusions
+The first thing we noticed when training these models is that we did not have enough data. Initially we had thought that 10 years of stock data would be enough, however the underfitting in almost all of our models proved this was not the case. Secondly, while we didn’t have enough time-series data, we had extreme amounts of extraneous data within the features themselves. This led to our models becoming unable to ascertain what data was important, and what was not. We believe this is the other main contributing factor to the low accuracy within the deep learning models.
+
+One misconception our group had when starting this project is that neural nets are “king,” per se. This means that neural networks are capable of solving any problem with (relative) ease. While we may have not had enough data, and a large amount of irrelevant information, we expected all of our models to overfit over time. This was absolutely not the case. As shown above, ensemble learning actually proved best in this case, something none of us were expecting.
+
+Despite poor accuracies in many of our classification algorithms, ensemble learning proved very effective in predicting the correct policy for our indicators. We believe this is due to Random Forest’s ability to mitigate variance within the dataset. Because it is trained on multiple portions of the data (in our case 100 trees trained on different subsets of features), it is better able to capture the overall function to approximate policy. This shows that there is valuable data within the technical indicators, and that on some level these indicators can be used to help traders make profitable decisions when trading stocks.
