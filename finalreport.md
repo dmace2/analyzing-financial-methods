@@ -187,8 +187,6 @@ Furthermore, taking the optimal number of clusters when performing GMM on each o
 ###### Visualization of Number of Clusters per Stock
 
 
-Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
-
 #### Supervised Learning Learning
 
 ##### Classification Using Naive Bayes
@@ -243,6 +241,10 @@ The Random Forest model proved to be very effective for classifying policies, pe
 
 
 ### Conclusions
+#### Unsupervised Learning Conclusions
+Applying these findings to the real world, it becomes clear that technical indicators are not a universal, one-size-fits-all tool for making investment decisions. Even when treating the company sector as a constant, technical indicators combine to align signals for some stocks more than others. On the bottom end of the spectrum, some stocks show no clear positive relationship between technical indicators, despite the variety of such indicators that exist. Even at the top of the spectrum, indicators share a positive relationship in a mere general sense; it is somewhat likely that indicators may align, but there is no guarantee that a high degree of confidence is maintained.
+
+#### Supervised Learning Conclusions
 The first thing we noticed when training these models is that we did not have enough data. Initially we had thought that 10 years of stock data would be enough, however the underfitting in almost all of our models proved this was not the case. Secondly, while we didn’t have enough time-series data, we had extreme amounts of extraneous data within the features themselves. This led to our models becoming unable to ascertain what data was important, and what was not. We believe this is the other main contributing factor to the low accuracy within the deep learning models.
 
 One misconception our group had when starting this project is that neural nets are “king,” per se. This means that neural networks are capable of solving any problem with (relative) ease. While we may have not had enough data, and a large amount of irrelevant information, we expected all of our models to overfit over time. This was absolutely not the case. As shown above, ensemble learning actually proved best in this case, something none of us were expecting.
