@@ -192,16 +192,54 @@ Applying these findings to the real world, it becomes clear that technical indic
 #### Supervised Learning Learning
 
 ##### Classification Using Naive Bayes
-The Naive Bayes model did a poor job of classification. It consistently chose policies that were the most present, often only selecting between one or two labels instead of all 4. This made its accuracy very low and unhelpful for choosing the correct policy. 
+<img src="report_images/NaiveBayes/CMG_confusion.png" width='500px' />
+<img src="report_images/NaiveBayes/NKE_confusion.png" width='500px' />
+<img src="report_images/NaiveBayes/TM_confusion.png" width='500px' />
 
+The Naive Bayes model did a poor job of classification. It consistently chose policies that were the most present, often only selecting between one or two labels instead of all 4. This made its accuracy very low and unhelpful for choosing the correct policy.
 
+##### Classification Using SVM
+<img src="report_images/SVM/F_confusion.png" width='500px' />
+<img src="report_images/SVM/HMC_confusion.png" width='500px' />
+<img src="report_images/SVM/TM_confusion.png" width='500px' />
 
+SVM also did not classify the policies very well. Classifications were largely random and led to very inconsistent accuracy levels. This is due to the fact that the pairing of features and optimal stocks were not linearly separable, making SVM ineffective.
 
+##### Classification Using KNN
+<img src="report_images/KNN/AMZN_confusion.png" width='500px' />
+<img src="report_images/KNN/GM_confusion.png" width='500px' />
+<img src="report_images/KNN/TSLA_confusion.png" width='500px' />
 
+Similar to SVM, the KNN model did not classify particularly well. Features that were similar in the z-space, which we would expect to have similar policies, had lots of variation in predicted policies. For most stocks, this model did not perform any better than randomly selecting labels, making this model not useful to choose correct policies.
 
+##### Classification Using Dense Deep Learning
+<img src="report_images/DenseDL/NN Accuracy for JD Dense.png" width='500px' />
+<img src="report_images/DenseDL/NN Confusion Matrix for JD Dense.png" width='500px' />
+<img src="report_images/DenseDL/NN Loss for JD Dense.png" width='500px' />
 
+The Dense Neural Network did not classify policies well. Similar to Naive Bayes, for most stocks there were only one or two labels selected from out of the 4 total, and the predictions were largely inaccurate. Accuracy levels for each stock fluctuated wildly as the number of epochs increased, never converging on any sort of high percentage. Due to the high amount of noise in the training data, overfitting did not occur, but underfitting is a likely explanation for the shortcomings of this model to correctly predict policies.
 
+##### Classification Using LSTM Deep Learning
+<img src="report_images/LSTMDL/NN Accuracy for JD Dense.png" width='500px' />
+<img src="report_images/LSTMDL/NN Confusion Matrix for JD Dense.png" width='500px' />
+<img src="report_images/LSTMDL/NN Loss for JD Dense.png" width='500px' />
 
+The LSTM Neural Network also struggled to classify policies. Like the Dense Neural Network, this model had fluctuating accuracy levels as epochs increased, but actually started sharply decreasing accuracy as the number of epochs rose to a high level. This observation combined with the fact that the loss value for the test data increased with epochs suggest that overfitting was a culprit for the ineffectiveness of this model to predict policies.
+
+##### Classification Using CNN
+<img src="report_images/CNN/overfit_confusion.png" width='500px' />
+<img src="report_images/CNN/overfit_model_training.png" width='500px' />
+<img src="report_images/CNN/underfit_confusion.png" width='500px' />
+<img src="report_images/CNN/underfit_model_training.png" width='500px' />
+
+The 1D Convolutional Neural Network (CNN) did not show any form of improvement. We found this model to be very delicate, easily overfitting with a complex CNN model but underfitting when a more simple model was used. With both the complex and the simple CNN, the accuracy levels were not any more effective than random predictions would have been, making it not useful for classifying policies. 
+
+##### Classification Using Random Forest
+<img src="report_images/RandomForest/GM_confusion.png" width='500px' />
+<img src="report_images/RandomForest/MCD_confusion.png" width='500px' />
+<img src="report_images/RandomForest/SBUX_confusion.png" width='500px' />
+
+The Random Forest model proved to be very effective for classifying policies, performing better than every other supervised learning method by a large margin. The accuracy levels were above 80%, and this was consistent among all of the stocks. There are a couple reasons why we think this model performed much better than the others for predicting policies: for one, the ensemble method utilized by Random Forest avoids overfitting due to voting, which helped maintain high accuracy levels with the test data. Specific patterns within the data were identified by this model, something the rest of the models were not able to do. Pruning of the trees also helped this model’s performance, as it managed splits that were not productive and reduced overfitting.
 
 
 ### Conclusions
