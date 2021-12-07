@@ -220,9 +220,9 @@ Similar to SVM, the KNN model did not classify particularly well. Features that 
 The Dense Neural Network did not classify policies well. Similar to Naive Bayes, for most stocks there were only one or two labels selected from out of the 4 total, and the predictions were largely inaccurate. Accuracy levels for each stock fluctuated wildly as the number of epochs increased, never converging on any sort of high percentage. Due to the high amount of noise in the training data, overfitting did not occur, but underfitting is a likely explanation for the shortcomings of this model to correctly predict policies.
 
 ##### Classification Using LSTM Deep Learning
-<img src="report_images/LSTMDL/NN Accuracy for JD Dense.png" width='500px' />
-<img src="report_images/LSTMDL/NN Confusion Matrix for JD Dense.png" width='500px' />
-<img src="report_images/LSTMDL/NN Loss for JD Dense.png" width='500px' />
+<img src="report_images/LSTMDL/NN Accuracy for JD LSTM.png" width='500px' />
+<img src="report_images/LSTMDL/NN Confusion Matrix for JD LSTM.png" width='500px' />
+<img src="report_images/LSTMDL/NN Loss for JD LSTM.png" width='500px' />
 
 The LSTM Neural Network also struggled to classify policies. Like the Dense Neural Network, this model had fluctuating accuracy levels as epochs increased, but actually started sharply decreasing accuracy as the number of epochs rose to a high level. This observation combined with the fact that the loss value for the test data increased with epochs suggest that overfitting was a culprit for the ineffectiveness of this model to predict policies.
 
